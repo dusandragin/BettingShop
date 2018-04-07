@@ -1,0 +1,56 @@
+package model;
+
+import java.io.Serializable;
+import javax.persistence.*;
+
+/**
+ * The primary key class for the tiket database table.
+ * 
+ */
+@Embeddable
+public class TiketPK implements Serializable {
+	//default serial version id, required for serializable classes.
+	private static final long serialVersionUID = 1L;
+
+	private int brojTiketa;
+
+	@Column(insertable=false, updatable=false)
+	private int klijent_idKlijeta1;
+
+	public TiketPK() {
+	}
+	public int getBrojTiketa() {
+		return this.brojTiketa;
+	}
+	public void setBrojTiketa(int brojTiketa) {
+		this.brojTiketa = brojTiketa;
+	}
+	public int getKlijent_idKlijeta1() {
+		return this.klijent_idKlijeta1;
+	}
+	public void setKlijent_idKlijeta1(int klijent_idKlijeta1) {
+		this.klijent_idKlijeta1 = klijent_idKlijeta1;
+	}
+
+	public boolean equals(Object other) {
+		if (this == other) {
+			return true;
+		}
+		if (!(other instanceof TiketPK)) {
+			return false;
+		}
+		TiketPK castOther = (TiketPK)other;
+		return 
+			(this.brojTiketa == castOther.brojTiketa)
+			&& (this.klijent_idKlijeta1 == castOther.klijent_idKlijeta1);
+	}
+
+	public int hashCode() {
+		final int prime = 31;
+		int hash = 17;
+		hash = hash * prime + this.brojTiketa;
+		hash = hash * prime + this.klijent_idKlijeta1;
+		
+		return hash;
+	}
+}

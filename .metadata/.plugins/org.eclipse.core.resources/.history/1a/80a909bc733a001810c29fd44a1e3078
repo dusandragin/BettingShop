@@ -1,0 +1,108 @@
+package model;
+
+import java.io.Serializable;
+import javax.persistence.*;
+import java.util.List;
+
+
+/**
+ * The persistent class for the klijent database table.
+ * 
+ */
+@Entity
+@NamedQuery(name="Klijent.findAll", query="SELECT k FROM Klijent k")
+public class Klijent implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private int idKlijeta;
+
+	private String email;
+
+	private String imeKlijenta;
+
+	private String password;
+
+	private String prezimeKlijenta;
+
+	private String username;
+
+	//bi-directional many-to-one association to Tiket
+	@OneToMany(mappedBy="klijent")
+	private List<Tiket> tikets;
+
+	public Klijent() {
+	}
+
+	public int getIdKlijeta() {
+		return this.idKlijeta;
+	}
+
+	public void setIdKlijeta(int idKlijeta) {
+		this.idKlijeta = idKlijeta;
+	}
+
+	public String getEmail() {
+		return this.email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getImeKlijenta() {
+		return this.imeKlijenta;
+	}
+
+	public void setImeKlijenta(String imeKlijenta) {
+		this.imeKlijenta = imeKlijenta;
+	}
+
+	public String getPassword() {
+		return this.password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getPrezimeKlijenta() {
+		return this.prezimeKlijenta;
+	}
+
+	public void setPrezimeKlijenta(String prezimeKlijenta) {
+		this.prezimeKlijenta = prezimeKlijenta;
+	}
+
+	public String getUsername() {
+		return this.username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public List<Tiket> getTikets() {
+		return this.tikets;
+	}
+
+	public void setTikets(List<Tiket> tikets) {
+		this.tikets = tikets;
+	}
+
+	public Tiket addTiket(Tiket tiket) {
+		getTikets().add(tiket);
+		tiket.setKlijent(this);
+
+		return tiket;
+	}
+
+	public Tiket removeTiket(Tiket tiket) {
+		getTikets().remove(tiket);
+		tiket.setKlijent(null);
+
+		return tiket;
+	}
+
+}

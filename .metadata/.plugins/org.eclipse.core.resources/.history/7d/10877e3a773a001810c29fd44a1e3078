@@ -1,0 +1,12 @@
+package main;
+
+import javax.persistence.Entity;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+
+public class Test {
+
+	public static void main(String[] args) {
+		EntityManagerFactory
+	}
+}

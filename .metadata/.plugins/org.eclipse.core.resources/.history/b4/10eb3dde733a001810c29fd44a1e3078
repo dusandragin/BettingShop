@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="Kladionica_JPA">
+		<class>model.Kategorija</class>
+		<class>model.Klijent</class>
+		<class>model.Liga</class>
+		<class>model.LigaPK</class>
+		<class>model.Tiket</class>
+		<class>model.TiketPK</class>
+		<class>model.TiketHasUtakmica</class>
+		<class>model.TiketHasUtakmica</class>
+		<class>model.Tim</class>
+		<class>model.Utakmica</class>
+		<class>model.Utakmica</class>
+	</persistence-unit>
+</persistence>
