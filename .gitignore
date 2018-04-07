@@ -5,6 +5,7 @@ git # Created by https://www.gitignore.io/api/eclipse
 .metadata
 bin/
 tmp/
+RemoteSystemsTempFiles/
 *.tmp
 *.bak
 *.swp
