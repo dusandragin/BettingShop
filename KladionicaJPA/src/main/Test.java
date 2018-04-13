@@ -4,7 +4,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
-import model.User;
+import kladionica.entity.User;
 
 public class Test {
 
@@ -15,11 +15,11 @@ public class Test {
 		EntityTransaction et = em.getTransaction();
 		et.begin();
 		User user = new User();
-		user.setEmail("pera.peric@gmail.com");
-		user.setName("Pera");
-		user.setSurname("Peric");
-		user.setUsername("peraperic");
-		user.setPassword("pera");
+		user.setEmail("komsa.zokic@gmail.com");
+		user.setName("Zoki");
+		user.setSurname("ac");
+		user.setUsername("zoki");
+		user.setPassword("zoki");
 		
 		em.persist(user);
 		et.commit();

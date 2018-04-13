@@ -1,4 +1,4 @@
-package model;
+package kladionica.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;

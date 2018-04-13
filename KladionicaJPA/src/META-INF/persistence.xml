@@ -3,12 +3,12 @@
 	xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 	<persistence-unit name="KladionicaJPA">
-		<class>model.Category</class>
-		<class>model.League</class>
-		<class>model.Match</class>
-		<class>model.Team</class>
-		<class>model.Ticket</class>
-		<class>model.User</class>
+		<class>kladionica.entity.Category</class>
+		<class>kladionica.entity.League</class>
+		<class>kladionica.entity.Match</class>
+		<class>kladionica.entity.Team</class>
+		<class>kladionica.entity.Ticket</class>
+		<class>kladionica.entity.User</class>
 		<properties>
 			<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
 			<property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/kladionica" />
