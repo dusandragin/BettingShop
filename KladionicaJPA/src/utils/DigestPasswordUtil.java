@@ -26,7 +26,7 @@ public final class DigestPasswordUtil {
 		return buf.toString();
 	}
 
-	public static String md5(String text, String algorithm)
+	public static String hashPassword(String text, String algorithm)
 			throws NoSuchAlgorithmException, UnsupportedEncodingException {
 		MessageDigest md;
 		md = MessageDigest.getInstance(algorithm);
