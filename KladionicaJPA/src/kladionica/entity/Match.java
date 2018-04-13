@@ -19,9 +19,15 @@ public class Match implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idMatch;
 
+	private double awayOdd;
+
 	private int awayScore;
 
 	private String city;
+
+	private double egalOdd;
+
+	private double homeOdd;
 
 	private int homeScore;
 
@@ -57,6 +63,14 @@ public class Match implements Serializable {
 		this.idMatch = idMatch;
 	}
 
+	public double getAwayOdd() {
+		return this.awayOdd;
+	}
+
+	public void setAwayOdd(double awayOdd) {
+		this.awayOdd = awayOdd;
+	}
+
 	public int getAwayScore() {
 		return this.awayScore;
 	}
@@ -71,6 +85,22 @@ public class Match implements Serializable {
 
 	public void setCity(String city) {
 		this.city = city;
+	}
+
+	public double getEgalOdd() {
+		return this.egalOdd;
+	}
+
+	public void setEgalOdd(double egalOdd) {
+		this.egalOdd = egalOdd;
+	}
+
+	public double getHomeOdd() {
+		return this.homeOdd;
+	}
+
+	public void setHomeOdd(double homeOdd) {
+		this.homeOdd = homeOdd;
 	}
 
 	public int getHomeScore() {

@@ -2,9 +2,6 @@ package kladionica.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
-
-import kladionica.entity.Category;
-
 import java.util.List;
 
 

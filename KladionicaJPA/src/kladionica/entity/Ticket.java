@@ -28,8 +28,7 @@ public class Ticket implements Serializable {
 
 	private double totalOdd;
 
-	@Column(nullable=false, columnDefinition="TINYINT(1)")
-	private boolean valid;
+	private byte valid;
 
 	//bi-directional many-to-one association to User
 	@ManyToOne
@@ -91,11 +90,11 @@ public class Ticket implements Serializable {
 		this.totalOdd = totalOdd;
 	}
 
-	public boolean getValid() {
+	public byte getValid() {
 		return this.valid;
 	}
 
-	public void setValid(boolean valid) {
+	public void setValid(byte valid) {
 		this.valid = valid;
 	}
 

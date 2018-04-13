@@ -18,6 +18,8 @@ public class User implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idUser;
 
+	private double credit;
+
 	private String email;
 
 	private String name;
@@ -32,6 +34,10 @@ public class User implements Serializable {
 	@OneToMany(mappedBy="user")
 	private List<Ticket> tickets;
 
+	//bi-directional many-to-one association to Role
+	@ManyToOne
+	private Role role;
+
 	public User() {
 	}
 
@@ -41,6 +47,14 @@ public class User implements Serializable {
 
 	public void setIdUser(int idUser) {
 		this.idUser = idUser;
+	}
+
+	public double getCredit() {
+		return this.credit;
+	}
+
+	public void setCredit(double credit) {
+		this.credit = credit;
 	}
 
 	public String getEmail() {
@@ -103,6 +117,14 @@ public class User implements Serializable {
 		ticket.setUser(null);
 
 		return ticket;
+	}
+
+	public Role getRole() {
+		return this.role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
 	}
 
 }
