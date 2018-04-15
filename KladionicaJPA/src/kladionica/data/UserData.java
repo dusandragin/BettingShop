@@ -23,6 +23,14 @@ public class UserData {
 		this.username = username;
 	}
 
+	public UserData(String name, String surname, String username, String email, double credit) {
+		this.credit = credit;
+		this.email = email;
+		this.name = name;
+		this.surname = surname;
+		this.username = username;
+	}
+
 	public double getCredit() {
 		return credit;
 	}

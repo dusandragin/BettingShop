@@ -8,6 +8,6 @@
 </head>
 <body>
 	<h2>Pogrsno korisnicko ime i/ili lozinka!</h2>
-	<a href="/KladionicaWebClient/Home.jsp">Nazad na pocetak</a>
+	<a href="/KladionicaWebClient/home.jsp">Nazad na pocetak</a>
 </body>
 </html>

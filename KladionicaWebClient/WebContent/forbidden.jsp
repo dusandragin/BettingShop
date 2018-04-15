@@ -9,7 +9,7 @@
 <body>
 	<h2>Korisnik koji se logovao nema privilegije da pristupi ovom
 		resursu!</h2>
-	<a href="/KladionicaWebClient/Home.jsp">Nazad na pocetak</a>
+	<a href="/KladionicaWebClient/home.jsp">Nazad na pocetak</a>
 	<a href="/KladionicaWebClient/logout.jsp">Logout i nazad na pocetak</a>
 </body>
 </html>

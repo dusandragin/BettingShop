@@ -6,6 +6,6 @@ User '<%=request.getRemoteUser()%>' has been logged out.
 </c:if>
 <%
 	session.invalidate();
-	response.sendRedirect(request.getContextPath() + "/Home.jsp");
+	response.sendRedirect(request.getContextPath() + "/home.jsp");
 %>
-<jsp:include page="Home.jsp"></jsp:include>
+<jsp:include page="home.jsp"></jsp:include>
