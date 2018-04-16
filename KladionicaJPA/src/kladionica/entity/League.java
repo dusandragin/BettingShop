@@ -28,8 +28,8 @@ public class League implements Serializable {
 	@OneToMany(mappedBy="league")
 	private List<Match> matches;
 
-	//bi-directional many-to-one association to Team
-	@OneToMany(mappedBy="league")
+	//bi-directional many-to-many association to Team
+	@ManyToMany(mappedBy="leagues")
 	private List<Team> teams;
 
 	public League() {
@@ -87,20 +87,6 @@ public class League implements Serializable {
 
 	public void setTeams(List<Team> teams) {
 		this.teams = teams;
-	}
-
-	public Team addTeam(Team team) {
-		getTeams().add(team);
-		team.setLeague(this);
-
-		return team;
-	}
-
-	public Team removeTeam(Team team) {
-		getTeams().remove(team);
-		team.setLeague(null);
-
-		return team;
 	}
 
 }

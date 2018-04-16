@@ -1,4 +1,4 @@
-package kladionica.session;
+package kladionica.session.local;
 
 import kladionica.data.UserData;
 

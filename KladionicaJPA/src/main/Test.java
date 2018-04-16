@@ -8,7 +8,6 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
 import kladionica.entity.User;
-import utils.DigestPasswordUtil;
 
 public class Test {
 
@@ -21,7 +20,7 @@ public class Test {
 		User user = new User();
 		user.setEmail("komsa.zokic@gmail.com");
 		user.setName("Zoki");
-		user.setSurname("ac");
+		user.setLastname("ac");
 		user.setUsername("zoki");
 		user.setPassword("f445dd9bc7880bc2ce62de6e7dca89d0");
 		

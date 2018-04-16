@@ -3,6 +3,9 @@ package kladionica.session;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateful;
 
+import kladionica.session.local.UserSessionBeanLocal;
+import kladionica.session.remote.UserSessionBeanRemote;
+
 /**
  * Session Bean implementation class UserSessionBean
  */

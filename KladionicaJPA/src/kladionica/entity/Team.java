@@ -32,9 +32,18 @@ public class Team implements Serializable {
 	@OneToMany(mappedBy="team2")
 	private List<Match> matches2;
 
-	//bi-directional many-to-one association to League
-	@ManyToOne
-	private League league;
+	//bi-directional many-to-many association to League
+	@ManyToMany
+	@JoinTable(
+		name="team_has_league"
+		, joinColumns={
+			@JoinColumn(name="Team_idTeam")
+			}
+		, inverseJoinColumns={
+			@JoinColumn(name="League_idLeague")
+			}
+		)
+	private List<League> leagues;
 
 	public Team() {
 	}
@@ -115,12 +124,12 @@ public class Team implements Serializable {
 		return matches2;
 	}
 
-	public League getLeague() {
-		return this.league;
+	public List<League> getLeagues() {
+		return this.leagues;
 	}
 
-	public void setLeague(League league) {
-		this.league = league;
+	public void setLeagues(List<League> leagues) {
+		this.leagues = leagues;
 	}
 
 }

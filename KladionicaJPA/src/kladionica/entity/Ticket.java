@@ -30,6 +30,10 @@ public class Ticket implements Serializable {
 
 	private byte valid;
 
+	//bi-directional many-to-one association to User
+	@ManyToOne
+	private User user;
+
 	//bi-directional many-to-many association to Match
 	@ManyToMany
 	@JoinTable(
@@ -42,10 +46,6 @@ public class Ticket implements Serializable {
 			}
 		)
 	private List<Match> matches;
-
-	//bi-directional many-to-one association to User
-	@ManyToOne
-	private User user;
 
 	public Ticket() {
 	}
@@ -98,20 +98,20 @@ public class Ticket implements Serializable {
 		this.valid = valid;
 	}
 
-	public List<Match> getMatches() {
-		return this.matches;
-	}
-
-	public void setMatches(List<Match> matches) {
-		this.matches = matches;
-	}
-
 	public User getUser() {
 		return this.user;
 	}
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public List<Match> getMatches() {
+		return this.matches;
+	}
+
+	public void setMatches(List<Match> matches) {
+		this.matches = matches;
 	}
 
 }
