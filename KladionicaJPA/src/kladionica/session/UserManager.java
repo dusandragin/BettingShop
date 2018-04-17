@@ -54,22 +54,27 @@ public class UserManager implements UserManagerLocal {
 		return null;
 	}
 
+	// looking only for username and password
 	public Response findUser(UserData userData) {
-		User user = (User) em.createQuery("select u from User u where u.username=:userName and u.password=:pass")
-				.setParameter("userName", userData.getUsername()).setParameter("pass", userData.getPassword())
-				.getSingleResult();
-		Response response = null;
+		User user = (User) em.createQuery("select u from User u "
+									    + "where u.username=:userName "
+									    + "and u.password=:pass")
+							 .setParameter("userName", userData.getUsername())
+							 .setParameter("pass", userData.getPassword())
+							 .getSingleResult();
 		UserData JSONRes = null;
 		Map<String, Object> resMap = new HashMap<String, Object>();
 		if (user != null) {
-			JSONRes = new UserData(user.getName(), user.getLastname(), user.getUsername(), user.getEmail(),
-					user.getCredit());
-			response = Response.ok(JSONRes, MediaType.APPLICATION_JSON).build();
-			return response;
+			JSONRes = new UserData(user.getName(), user.getLastname(), 
+								   user.getUsername(), user.getEmail(),
+								   user.getCredit());
+			return Response.ok(JSONRes, MediaType.APPLICATION_JSON)
+					   .build();
 		}else {
 			resMap.put("INFO", "Login is unsucessful!");
-			String res = JSON.serialize(resMap);
-			return Response.status(Response.Status.UNAUTHORIZED).entity(res).build();
+			return Response.status(Response.Status.UNAUTHORIZED)
+						   .entity(JSON.serialize(resMap))
+						   .build();
 		}
 	}
 	
