@@ -1,7 +1,7 @@
 package kladionica.data;
 
 public class UserData {
-	
+
 	private double credit;
 
 	private String email;
@@ -13,6 +13,9 @@ public class UserData {
 	private String surname;
 
 	private String username;
+
+	public UserData() {
+	}
 
 	public UserData(double credit, String email, String name, String password, String surname, String username) {
 		this.credit = credit;

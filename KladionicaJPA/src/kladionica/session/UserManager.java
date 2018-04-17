@@ -72,5 +72,6 @@ public class UserManager implements UserManagerLocal {
 			return Response.status(Response.Status.UNAUTHORIZED).entity(res).build();
 		}
 	}
+	
 
 }
