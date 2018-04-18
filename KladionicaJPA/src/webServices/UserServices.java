@@ -8,6 +8,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import kladionica.data.LoginParams;
 import kladionica.data.UserData;
 import kladionica.session.UserManager;
 
@@ -25,4 +26,12 @@ public class UserServices {
 		Response res = userBean.insertUser(userData);
 		return res;
 	}
+	
+	 @Path("/login")
+	 @POST
+	 @Produces(MediaType.APPLICATION_JSON)
+	 public Response loginSubmit(LoginParams userData) throws Exception {
+		 Response res = userBean.findUser(userData);
+		 return res;
+	 }
 }

@@ -9,6 +9,7 @@ import javax.persistence.PersistenceContext;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import kladionica.data.LoginParams;
 import kladionica.data.UserData;
 import kladionica.entity.User;
 
@@ -37,4 +38,20 @@ public class UserManager {
 			return Response.ok("nije ok").build() ;
 		}
 	}
+	// looking only for username and password
+	public Response findUser(LoginParams userData) {
+		User newUser = (User) em
+				.createQuery("select u from User u " + "where u.email=:email " + "and u.password=:pass")
+				.setParameter("email", userData.getEmail())
+				.setParameter("pass", userData.getPassword())
+				.getSingleResult();
+		UserData JSONRes = null;
+		if (newUser != null) {
+			JSONRes = new UserData(newUser.getCredit(), newUser.getEmail(), newUser.getName(), newUser.getLastname(), newUser.getUsername());
+			return Response.ok(JSONRes, MediaType.APPLICATION_JSON).build();
+		} else {
+			return Response.ok("login fail").build();
+		}
+	}
+	
 }
