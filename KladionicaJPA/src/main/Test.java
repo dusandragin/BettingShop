@@ -17,9 +17,10 @@ public class Test {
 		User user = new User();
 		user.setEmail("komsa.zokic@gmail.com");
 		user.setName("Zoki");
-		user.setSurname("ac");
+		user.setLastname("ac");
 		user.setUsername("zoki");
 		user.setPassword("zoki");
+		user.setRole("konj");
 		
 		em.persist(user);
 		et.commit();

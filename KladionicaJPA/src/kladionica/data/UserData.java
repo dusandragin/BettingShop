@@ -10,19 +10,30 @@ public class UserData {
 
 	private String password;
 
-	private String surname;
+	private String lastname;
 
 	private String username;
 
-	public UserData(double credit, String email, String name, String password, String surname, String username) {
+	public UserData(double credit, String email, String name, String password, String lastname, String username) {
 		this.credit = credit;
 		this.email = email;
 		this.name = name;
 		this.password = password;
-		this.surname = surname;
+		this.lastname = lastname;
 		this.username = username;
 	}
 
+	public UserData(double credit, String email, String name, String lastname, String username) {
+		this.credit = credit;
+		this.email = email;
+		this.name = name;
+		this.lastname = lastname;
+		this.username = username;
+		
+	}
+	public UserData() {
+		
+	}
 	public double getCredit() {
 		return credit;
 	}
@@ -55,12 +66,12 @@ public class UserData {
 		this.password = password;
 	}
 
-	public String getSurname() {
-		return surname;
+	public String getLastname() {
+		return lastname;
 	}
 
-	public void setSurname(String surname) {
-		this.surname = surname;
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
 	}
 
 	public String getUsername() {

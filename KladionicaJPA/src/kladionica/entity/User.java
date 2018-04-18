@@ -10,23 +10,25 @@ import java.util.List;
  * 
  */
 @Entity
-@NamedQuery(name="User.findAll", query="SELECT u FROM User u")
+@Table(name="user")
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int idUser;
 
 	private double credit;
 
 	private String email;
 
+	private String lastname;
+
 	private String name;
 
 	private String password;
 
-	private String surname;
+	private String role;
 
 	private String username;
 
@@ -34,11 +36,18 @@ public class User implements Serializable {
 	@OneToMany(mappedBy="user")
 	private List<Ticket> tickets;
 
-	//bi-directional many-to-one association to Role
-	@ManyToOne
-	private Role role;
-
 	public User() {
+	}
+
+	public User(String name, String lastname, String username, String email, String password, double credit,
+			String role) {
+		this.name = name;
+		this.lastname = lastname;
+		this.username = username;
+		this.email = email;
+		this.password = password;
+		this.credit = credit;
+		this.role = role;
 	}
 
 	public int getIdUser() {
@@ -65,6 +74,14 @@ public class User implements Serializable {
 		this.email = email;
 	}
 
+	public String getLastname() {
+		return this.lastname;
+	}
+
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
+	}
+
 	public String getName() {
 		return this.name;
 	}
@@ -81,12 +98,12 @@ public class User implements Serializable {
 		this.password = password;
 	}
 
-	public String getSurname() {
-		return this.surname;
+	public String getRole() {
+		return this.role;
 	}
 
-	public void setSurname(String surname) {
-		this.surname = surname;
+	public void setRole(String role) {
+		this.role = role;
 	}
 
 	public String getUsername() {
@@ -117,14 +134,6 @@ public class User implements Serializable {
 		ticket.setUser(null);
 
 		return ticket;
-	}
-
-	public Role getRole() {
-		return this.role;
-	}
-
-	public void setRole(Role role) {
-		this.role = role;
 	}
 
 }
