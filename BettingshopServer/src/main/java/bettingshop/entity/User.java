@@ -7,17 +7,18 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.List;
 
+
 /**
  * The persistent class for the user database table.
  * 
  */
 @Entity
-@NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
+@NamedQuery(name="User.findAll", query="SELECT u FROM User u")
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int idUser;
 
 	private double credit;
@@ -34,34 +35,34 @@ public class User implements Serializable {
 
 	private String username;
 
-	// bi-directional many-to-one association to Komentar
-	@OneToMany(mappedBy = "user")
-	@JsonIgnore
-	private List<Komentar> komentars;
-
-	// bi-directional many-to-one association to Tema
-	@OneToMany(mappedBy = "user")
-	@JsonIgnore
-	private List<Tema> temas;
-
-	// bi-directional many-to-one association to Ticket
-	@OneToMany(mappedBy = "user")
+	//bi-directional many-to-one association to Ticket
+	@OneToMany(mappedBy="user")
 	@JsonIgnore
 	private List<Ticket> tickets;
 
+	//bi-directional many-to-one association to Comment
+	@OneToMany(mappedBy="user")
+	@JsonIgnore
+	private List<Comment> comments;
+
+	//bi-directional many-to-one association to Theme
+	@OneToMany(mappedBy="user")
+	@JsonIgnore
+	private List<Theme> themes;
+
 	public User() {
 	}
-
-	public User(String name, String lastname, String username, String email, String password, double credit,
-			String role) {
-		super();
-		this.credit = credit;
-		this.email = email;
-		this.lastname = lastname;
+	
+	public User(String name, String lastname, 
+		    String username, String email, 
+		    String password, double credit, String role) {
 		this.name = name;
-		this.password = password;
-		this.role = role;
+		this.lastname = lastname;
 		this.username = username;
+		this.email = email;
+		this.password = password;
+		this.credit = credit;
+		this.role = role;
 	}
 
 	public int getIdUser() {
@@ -128,50 +129,6 @@ public class User implements Serializable {
 		this.username = username;
 	}
 
-	public List<Komentar> getKomentars() {
-		return this.komentars;
-	}
-
-	public void setKomentars(List<Komentar> komentars) {
-		this.komentars = komentars;
-	}
-
-	public Komentar addKomentar(Komentar komentar) {
-		getKomentars().add(komentar);
-		komentar.setUser(this);
-
-		return komentar;
-	}
-
-	public Komentar removeKomentar(Komentar komentar) {
-		getKomentars().remove(komentar);
-		komentar.setUser(null);
-
-		return komentar;
-	}
-
-	public List<Tema> getTemas() {
-		return this.temas;
-	}
-
-	public void setTemas(List<Tema> temas) {
-		this.temas = temas;
-	}
-
-	public Tema addTema(Tema tema) {
-		getTemas().add(tema);
-		tema.setUser(this);
-
-		return tema;
-	}
-
-	public Tema removeTema(Tema tema) {
-		getTemas().remove(tema);
-		tema.setUser(null);
-
-		return tema;
-	}
-
 	public List<Ticket> getTickets() {
 		return this.tickets;
 	}
@@ -192,6 +149,50 @@ public class User implements Serializable {
 		ticket.setUser(null);
 
 		return ticket;
+	}
+
+	public List<Comment> getComments() {
+		return this.comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
+
+	public Comment addComment(Comment comment) {
+		getComments().add(comment);
+		comment.setUser(this);
+
+		return comment;
+	}
+
+	public Comment removeComment(Comment comment) {
+		getComments().remove(comment);
+		comment.setUser(null);
+
+		return comment;
+	}
+
+	public List<Theme> getThemes() {
+		return this.themes;
+	}
+
+	public void setThemes(List<Theme> themes) {
+		this.themes = themes;
+	}
+
+	public Theme addTheme(Theme theme) {
+		getThemes().add(theme);
+		theme.setUser(this);
+
+		return theme;
+	}
+
+	public Theme removeTheme(Theme theme) {
+		getThemes().remove(theme);
+		theme.setUser(null);
+
+		return theme;
 	}
 
 }

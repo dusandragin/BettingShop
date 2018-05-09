@@ -27,15 +27,15 @@ public class Team implements Serializable {
 
 	private String stadium;
 
-	//bi-directional many-to-one association to Match
+	//bi-directional many-to-one association to Game
 	@OneToMany(mappedBy="team1")
 	@JsonIgnore
-	private List<Match> matches1;
+	private List<Game> games1;
 
-	//bi-directional many-to-one association to Match
+	//bi-directional many-to-one association to Game
 	@OneToMany(mappedBy="team2")
 	@JsonIgnore
-	private List<Match> matches2;
+	private List<Game> games2;
 
 	//bi-directional many-to-many association to League
 	@ManyToMany
@@ -86,48 +86,48 @@ public class Team implements Serializable {
 		this.stadium = stadium;
 	}
 
-	public List<Match> getMatches1() {
-		return this.matches1;
+	public List<Game> getGames1() {
+		return this.games1;
 	}
 
-	public void setMatches1(List<Match> matches1) {
-		this.matches1 = matches1;
+	public void setGames1(List<Game> games1) {
+		this.games1 = games1;
 	}
 
-	public Match addMatches1(Match matches1) {
-		getMatches1().add(matches1);
-		matches1.setTeam1(this);
+	public Game addGames1(Game games1) {
+		getGames1().add(games1);
+		games1.setTeam1(this);
 
-		return matches1;
+		return games1;
 	}
 
-	public Match removeMatches1(Match matches1) {
-		getMatches1().remove(matches1);
-		matches1.setTeam1(null);
+	public Game removeGames1(Game games1) {
+		getGames1().remove(games1);
+		games1.setTeam1(null);
 
-		return matches1;
+		return games1;
 	}
 
-	public List<Match> getMatches2() {
-		return this.matches2;
+	public List<Game> getGames2() {
+		return this.games2;
 	}
 
-	public void setMatches2(List<Match> matches2) {
-		this.matches2 = matches2;
+	public void setGames2(List<Game> games2) {
+		this.games2 = games2;
 	}
 
-	public Match addMatches2(Match matches2) {
-		getMatches2().add(matches2);
-		matches2.setTeam2(this);
+	public Game addGames2(Game games2) {
+		getGames2().add(games2);
+		games2.setTeam2(this);
 
-		return matches2;
+		return games2;
 	}
 
-	public Match removeMatches2(Match matches2) {
-		getMatches2().remove(matches2);
-		matches2.setTeam2(null);
+	public Game removeGames2(Game games2) {
+		getGames2().remove(games2);
+		games2.setTeam2(null);
 
-		return matches2;
+		return games2;
 	}
 
 	public List<League> getLeagues() {

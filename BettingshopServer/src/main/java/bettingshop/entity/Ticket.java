@@ -31,21 +31,12 @@ public class Ticket implements Serializable {
 
 	private double totalOdd;
 
-	private byte valid;
+	private boolean valid;
 
-	//bi-directional many-to-many association to Match
-	@ManyToMany
-	@JoinTable(
-		name="ticket_has_match"
-		, joinColumns={
-			@JoinColumn(name="Ticket_idTicket")
-			}
-		, inverseJoinColumns={
-			@JoinColumn(name="Match_idMatch")
-			}
-		)
+	//bi-directional many-to-one association to Result
+	@OneToMany(mappedBy="ticket")
 	@JsonIgnore
-	private List<Match> matches;
+	private List<Result> results;
 
 	//bi-directional many-to-one association to User
 	@ManyToOne
@@ -94,20 +85,34 @@ public class Ticket implements Serializable {
 		this.totalOdd = totalOdd;
 	}
 
-	public byte getValid() {
+	public boolean getValid() {
 		return this.valid;
 	}
 
-	public void setValid(byte valid) {
+	public void setValid(boolean valid) {
 		this.valid = valid;
 	}
 
-	public List<Match> getMatches() {
-		return this.matches;
+	public List<Result> getResults() {
+		return this.results;
 	}
 
-	public void setMatches(List<Match> matches) {
-		this.matches = matches;
+	public void setResults(List<Result> results) {
+		this.results = results;
+	}
+
+	public Result addResult(Result result) {
+		getResults().add(result);
+		result.setTicket(this);
+
+		return result;
+	}
+
+	public Result removeResult(Result result) {
+		getResults().remove(result);
+		result.setTicket(null);
+
+		return result;
 	}
 
 	public User getUser() {

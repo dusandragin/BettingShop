@@ -23,14 +23,14 @@ public class League implements Serializable {
 
 	private String name;
 
+	//bi-directional many-to-one association to Game
+	@OneToMany(mappedBy="league")
+	@JsonIgnore
+	private List<Game> games;
+
 	//bi-directional many-to-one association to Category
 	@ManyToOne
 	private Category category;
-
-	//bi-directional many-to-one association to Match
-	@OneToMany(mappedBy="league")
-	@JsonIgnore
-	private List<Match> matches;
 
 	//bi-directional many-to-many association to Team
 	@ManyToMany(mappedBy="leagues")
@@ -56,34 +56,34 @@ public class League implements Serializable {
 		this.name = name;
 	}
 
+	public List<Game> getGames() {
+		return this.games;
+	}
+
+	public void setGames(List<Game> games) {
+		this.games = games;
+	}
+
+	public Game addGame(Game game) {
+		getGames().add(game);
+		game.setLeague(this);
+
+		return game;
+	}
+
+	public Game removeGame(Game game) {
+		getGames().remove(game);
+		game.setLeague(null);
+
+		return game;
+	}
+
 	public Category getCategory() {
 		return this.category;
 	}
 
 	public void setCategory(Category category) {
 		this.category = category;
-	}
-
-	public List<Match> getMatches() {
-		return this.matches;
-	}
-
-	public void setMatches(List<Match> matches) {
-		this.matches = matches;
-	}
-
-	public Match addMatch(Match match) {
-		getMatches().add(match);
-		match.setLeague(this);
-
-		return match;
-	}
-
-	public Match removeMatch(Match match) {
-		getMatches().remove(match);
-		match.setLeague(null);
-
-		return match;
 	}
 
 	public List<Team> getTeams() {
