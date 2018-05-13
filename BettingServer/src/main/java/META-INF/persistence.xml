@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1"
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="BettingServer">
+		<jta-data-source>java:jboss/datasources/BettingshopDS</jta-data-source>
+		<class>bettingshop.entity.Category</class>
+		<class>bettingshop.entity.Comment</class>
+		<class>bettingshop.entity.Game</class>
+		<class>bettingshop.entity.League</class>
+		<class>bettingshop.entity.Result</class>
+		<class>bettingshop.entity.Team</class>
+		<class>bettingshop.entity.Theme</class>
+		<class>bettingshop.entity.Ticket</class>
+		<class>bettingshop.entity.User</class>
+	</persistence-unit>
+</persistence>
