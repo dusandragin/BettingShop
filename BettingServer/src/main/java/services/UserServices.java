@@ -71,7 +71,7 @@ public class UserServices {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getAllGamesForDate(LoginParams params) {
+	public Response getCurrUserCredit(LoginParams params) {
 		return userBean.getCurrUserCredit(params);
 	}
 	
