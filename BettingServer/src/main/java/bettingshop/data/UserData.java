@@ -6,10 +6,10 @@ package bettingshop.data;
 public class UserData {
 
 	private double credit;
-	private String email;
-	private String name;
-	private String password;
 	private String lastname;
+	private String name;
+	private String email;
+	private String password;
 	private String username;
 
 	public UserData(double credit, String email, 

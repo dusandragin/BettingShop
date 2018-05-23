@@ -43,27 +43,44 @@ public class UserServices {
 	public Response getTicketsForUser(LoginParams currUser) {
 		return userBean.getTicketsForUser(currUser);
 	}
+
+	@Path("/payTicket")
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response addTicket(TicketData body) {
+		return userBean.addTicket(body);
+	}
+
+	@Path("/isTicketValid")
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response isTicketValid(Ticket body) {
+		return userBean.isTicketValid(body);
+	}
+
+	@Path("/getAllGamesForDate/{date}")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getAllGamesForDate(@PathParam(value = "date") String date) {
+		return userBean.getAllGamesForDate(date);
+	}
 	
-	 @Path("/payTicket")
-	 @POST
-	 @Produces(MediaType.APPLICATION_JSON)
-	 @Consumes(MediaType.APPLICATION_JSON)
-	 public Response addTicket(TicketData body) {
-		 return userBean.addTicket(body);
-	 }
-	 @Path("/isTicketValid")
-	 @POST
-	 @Produces(MediaType.APPLICATION_JSON)
-	 @Consumes(MediaType.APPLICATION_JSON)
-	 public Response isTicketValid(Ticket body) {
-		 return userBean.isTicketValid(body);
-	 }
-	 
-	 @Path("/getAllGamesForDate/{date}")
-	 @GET
-	 @Produces(MediaType.APPLICATION_JSON)
-	 public Response getAllGamesForDate(@PathParam(value="date")String date) {
-		 return userBean.getAllGamesForDate(date);
-	 }
+	@Path("/credit")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getAllGamesForDate(LoginParams params) {
+		return userBean.getCurrUserCredit(params);
+	}
+	
+	@Path("/addCredit")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response addCredit(UserData body) {
+		return userBean.addCreditForCurrentUser(body);
+	}
 
 }

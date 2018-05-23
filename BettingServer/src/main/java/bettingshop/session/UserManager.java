@@ -115,6 +115,7 @@ public class UserManager {
 					ticket.setUser(user);
 					ticket.setTime(Calendar.getInstance().getTime());
 					em.persist(ticket);
+					boolean validTicket = true;
 					for (GameData gd : gamesData) {
 						Game game = em.find(Game.class, gd.getIdMatch());
 						Result res = new Result();
@@ -130,31 +131,21 @@ public class UserManager {
 						}
 						odd *= gd.getOdd();
 						ticket.setPotentionalWinnings(odd*body.getSum());
-						ticket.setTotalOdd(odd);
-						// set ticket validity
 						if (compareResults(game.getHomeScore(), game.getAwayScore()) == 0) {
-							if (res.getResult() == 0) {
-								ticket.setValid(true);
-							}else {
-								ticket.setValid(false);
-							}
+							if (res.getResult() != 0) validTicket = false;
 						}else if(compareResults(game.getHomeScore(), game.getAwayScore()) > 0) { 
-							if(res.getResult() == 1) {
-								ticket.setValid(true);
-							}else {
-								ticket.setValid(false);
-							}
+							if(res.getResult() != 1) validTicket = false;
 						}else {
-							if(res.getResult() == 2) {
-								ticket.setValid(true);
-							}else {
-								ticket.setValid(false);
-							}
+							if(res.getResult() != 2) validTicket = false;
 						}
 						em.persist(res);
 					}
+					ticket.setTotalOdd(odd); 
+					user.setCredit(user.getCredit() - body.getSum()); // set new credit for user
+					ticket.setValid(validTicket);
+					em.merge(user);
 					em.merge(ticket);
-					return Response.ok(body, MediaType.APPLICATION_JSON).build();
+					return Response.ok(user, MediaType.APPLICATION_JSON).build();
 				} else {
 					jsonRes = JSON.serialize("Uplata neuspesna. Nemate dovoljno novca." );				
 				}
@@ -221,6 +212,30 @@ public class UserManager {
 		GamesData gd = new GamesData();
 		gd.setGames(games);
 		return Response.ok(gd, MediaType.APPLICATION_JSON).build();
+	}
+	
+	public Response getCurrUserCredit(LoginParams currUserParams) {
+		User currUser = em.createQuery("select u from User u " + 
+				   "where u.email=:email " + 
+				   "and u.password=:pass", User.class)
+						.setParameter("email", currUserParams.getEmail())
+						.setParameter("pass", currUserParams.getPassword())
+						.getSingleResult();
+		return Response.ok(currUser).build();
+	}
+
+	public Response addCreditForCurrentUser(UserData body) {
+		User currUser = em.createQuery("select u from User u " + 
+				   "where u.email=:email " + 
+				   "and u.password=:pass", User.class)
+						.setParameter("email", body.getEmail())
+						.setParameter("pass", body.getPassword())
+						.getSingleResult();
+		double newCredit = currUser.getCredit() + body.getCredit();
+		currUser.setCredit(newCredit);
+		em.merge(currUser);
+		body.setCredit(currUser.getCredit());
+		return Response.ok(body).build();
 	}
 	
 }
