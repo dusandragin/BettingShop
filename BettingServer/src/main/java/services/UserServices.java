@@ -82,5 +82,22 @@ public class UserServices {
 	public Response addCredit(UserData body) {
 		return userBean.addCreditForCurrentUser(body);
 	}
+	
+	@Path("/allCategories")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getAllCategories() {
+		return userBean.getAllCategories();
+	}
+	
+	@Path("/gamesForCategory/{category}")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getGamesForCategory(@PathParam(value = "category") String category) {
+		return userBean.getGamesForCategory(category);
+	}
+	
 
 }

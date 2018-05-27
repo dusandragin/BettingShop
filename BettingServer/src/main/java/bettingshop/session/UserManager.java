@@ -18,6 +18,7 @@ import bettingshop.data.LoginParams;
 import bettingshop.data.TicketData;
 import bettingshop.data.UserData;
 import bettingshop.data.UserTickets;
+import bettingshop.entity.Category;
 import bettingshop.entity.Game;
 import bettingshop.entity.Result;
 import bettingshop.entity.Ticket;
@@ -236,6 +237,26 @@ public class UserManager {
 		em.merge(currUser);
 		body.setCredit(currUser.getCredit());
 		return Response.ok(body).build();
+	}
+
+	public Response getAllCategories() {
+		@SuppressWarnings("unchecked")
+		List<Category> categories = em.createNamedQuery("Category.findAll").getResultList();
+		return Response.ok(categories).build();
+	}
+
+	@SuppressWarnings("unchecked")
+	public Response getGamesForCategory(String category) {
+		List<Game> games = new ArrayList<Game>();
+		if (category.equalsIgnoreCase("all")) {
+			games = em.createNamedQuery("Game.findAll").getResultList();
+		}else {
+			games = em.createQuery("select g from Game g where g.league.category.name =:cat")
+					.setParameter("cat", category).getResultList();
+		}
+		GamesData gd = new GamesData();
+		gd.setGames(games);
+		return Response.ok(gd).build();
 	}
 	
 }
