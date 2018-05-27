@@ -17,8 +17,8 @@ import bettingshop.entity.User;
 import bettingshop.util.DateUtil;
 
 /**
- * Local Session Bean implementation class ForumManager
- * Implements logic for ForumServices
+ * Local Session Bean implementation class ForumManager Implements logic for
+ * ForumServices
  * 
  */
 @Stateless
@@ -32,15 +32,13 @@ public class ForumManager {
 	}
 
 	public Response getAllComments() {
-		return Response.ok(em.createNamedQuery("Comment.findAll")
-					         .getResultList()).build();
+		return Response.ok(em.createNamedQuery("Comment.findAll").getResultList()).build();
 	}
 
 	@SuppressWarnings("unchecked")
 	public Response getAllThemesWithComments() {
 		List<ThemeData> resultList = new ArrayList<>();
-		List<Theme> themes = em.createNamedQuery("Theme.findAll")
-							   .getResultList();
+		List<Theme> themes = em.createNamedQuery("Theme.findAll").getResultList();
 		for (Theme theme : themes) {
 			ThemeData tData = new ThemeData();
 			tData.setIdTeme(theme.getIdTeme());
@@ -48,16 +46,14 @@ public class ForumManager {
 			tData.setName(theme.getName());
 			tData.setTime(theme.getTime());
 			tData.setUser(theme.getUser());
-			List<Comment> comments = em.createQuery("select c from Comment c "
-											      + "where c.theme =:theme")
-									   .setParameter("theme", theme)
-									   .getResultList();
+			List<Comment> comments = em.createQuery("select c from Comment c " + "where c.theme =:theme")
+					.setParameter("theme", theme).getResultList();
 			tData.setComments(comments);
 			resultList.add(tData);
 		}
 		return Response.ok(resultList).build();
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public Response saveComment(CommentData commentData) {
 		Theme t = em.find(Theme.class, commentData.getIdTheme());
@@ -70,8 +66,7 @@ public class ForumManager {
 		em.persist(newComment);
 		// Refresh data on client - get all themes with comments
 		List<ThemeData> resultList = new ArrayList<>();
-		List<Theme> themes = em.createNamedQuery("Theme.findAll")
-							   .getResultList();
+		List<Theme> themes = em.createNamedQuery("Theme.findAll").getResultList();
 		for (Theme theme : themes) {
 			ThemeData tData = new ThemeData();
 			tData.setIdTeme(theme.getIdTeme());
@@ -79,15 +74,41 @@ public class ForumManager {
 			tData.setName(theme.getName());
 			tData.setTime(theme.getTime());
 			tData.setUser(theme.getUser());
-			List<Comment> comments = em.createQuery("select c from Comment c "
-											      + "where c.theme =:theme")
-									   .setParameter("theme", theme)
-									   .getResultList();
+			List<Comment> comments = em.createQuery("select c from Comment c " + "where c.theme =:theme")
+					.setParameter("theme", theme).getResultList();
 			tData.setComments(comments);
 			resultList.add(tData);
 		}
 		return Response.ok(resultList).build();
 	}
+
+	@SuppressWarnings("unchecked")
+	public Response saveTheme(ThemeData themeData) {
+		User currUser = em.find(User.class, themeData.getUser().getIdUser());
+		System.out.println(themeData.getDescription() + " | " + themeData.getName() + " | " + themeData.getTime());
+		System.out.println("curr user === id: " + currUser.getIdUser());
+		Theme newTheme = new Theme();
+		newTheme.setUser(currUser);
+		newTheme.setName(themeData.getName());
+		newTheme.setDescription(themeData.getDescription());
+		newTheme.setTime(themeData.getTime());
+		em.persist(newTheme);
+		// Refresh data on client - get all themes with comments
+		List<ThemeData> resultList = new ArrayList<>();
+		List<Theme> themes = em.createNamedQuery("Theme.findAll").getResultList();
+		for (Theme theme : themes) {
+			ThemeData tData = new ThemeData();
+			tData.setIdTeme(theme.getIdTeme());
+			tData.setDescription(theme.getDescription());
+			tData.setName(theme.getName());
+			tData.setTime(theme.getTime());
+			tData.setUser(theme.getUser());
+			List<Comment> comments = em.createQuery("select c from Comment c " + "where c.theme =:theme")
+					.setParameter("theme", theme).getResultList();
+			tData.setComments(comments);
+			resultList.add(tData);
+		}
+		System.out.println(" == size ==" + resultList.size());
+		return Response.ok(resultList).build();
+	}
 }
-
-

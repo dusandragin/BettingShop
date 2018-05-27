@@ -8,6 +8,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import bettingshop.data.CommentData;
+import bettingshop.data.ThemeData;
 import bettingshop.session.ForumManager;
 
 @Path("/forum")
@@ -23,6 +24,14 @@ public class ForumServices {
 		return forumBean.getAllThemesWithComments();
 	}
 
+	@Path("/saveTheme")
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response saveTheme(ThemeData themeData) {
+		return forumBean.saveTheme(themeData);
+	}
+
+	
 	@Path("/saveComment")
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
