@@ -1,9 +1,9 @@
-package services;
+package services.config;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
 @ApplicationPath("/")
-public class KladionicaApplication extends Application {
+public class BetApplication extends Application {
 	
 }
