@@ -17,7 +17,6 @@ public class OfficerServices {
 	@Inject
 	private OfficerManager officerBean;
 
-	// officer
 	@Path("/allCategories")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -26,7 +25,6 @@ public class OfficerServices {
 		return officerBean.getAllCategories();
 	}
 
-	// officer
 	@Path("/gamesForCategory/{category}")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -35,7 +33,6 @@ public class OfficerServices {
 		return officerBean.getGamesForCategory(category);
 	}
 
-	// officer
 	@Path("/leaguesForCategory/{category}")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -44,7 +41,6 @@ public class OfficerServices {
 		return officerBean.getLeaguesForCategory(category);
 	}
 
-	// officer
 	@Path("/gamesForLeague/{league}")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
