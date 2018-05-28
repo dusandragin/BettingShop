@@ -83,6 +83,7 @@ public class UserServices {
 		return userBean.addCreditForCurrentUser(body);
 	}
 	
+	// officer
 	@Path("/allCategories")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -91,6 +92,7 @@ public class UserServices {
 		return userBean.getAllCategories();
 	}
 	
+	// officer
 	@Path("/gamesForCategory/{category}")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -99,5 +101,21 @@ public class UserServices {
 		return userBean.getGamesForCategory(category);
 	}
 	
-
+	// officer
+	@Path("/leaguesForCategory/{category}")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getLeaguesForCategory(@PathParam(value = "category") String category) {
+		return userBean.getLeaguesForCategory(category);
+	}
+	
+	// officer
+	@Path("/gamesForLeague/{league}")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getGamesForLeague(@PathParam(value = "league") String league) {
+		return userBean.getGamesForLeague(league);
+	}
 }
