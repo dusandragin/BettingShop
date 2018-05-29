@@ -67,8 +67,34 @@ public class UserManager {
 				.setParameter("email", currUserParams.getEmail()).setParameter("pass", currUserParams.getPassword())
 				.getSingleResult();
 		@SuppressWarnings("unchecked")
-		List<Ticket> tickets = em.createQuery("select t from Ticket t where t.user =:currUser")
+		List<Ticket> tickets = em.createQuery("select t from Ticket t where t.user =:currUser order by t.time desc")
 				.setParameter("currUser", currUser).getResultList();
+		boolean lastThreeWon = false;
+		if (tickets.size() > 2) {
+			lastThreeWon = true;
+			for (int i = 0; i < 3; i++) { // posto je desc prvi tiket je poslednje odigran
+				Ticket tmp = tickets.get(i);
+				if (i == 0) {// najnoviji tiket
+					if (tmp.getStatus() != 1 || tmp.getStatus() == 2 || (!tmp.getValid())) {// ako isplacen ili vec udupliran
+						lastThreeWon = false;// prekida se
+						break;
+					}
+				} else { //ostai tiketi
+					if (!tmp.getValid()) {
+						lastThreeWon = false;// prekida se
+						break;
+					}
+				}
+				if (i==2 && tmp.getValid()  && lastThreeWon) { //samo za treci
+					tmp = tickets.get(0);// uzimamo prvi
+					double potWinn = tmp.getPotentionalWinnings(); // i dupliramo doitak
+					tmp.setPotentionalWinnings(potWinn * 2);
+					tmp.setStatus(2);// 2 znaci da je vec udvostrucen dobitak
+					em.merge(tmp);
+				}
+			}
+		}
+		
 		// DataBean is required - Result is mapped with @JsonIgnore
 		List<UserTickets> userTickets = new ArrayList<>();
 		for (Ticket ticket : tickets) {
