@@ -50,8 +50,21 @@ public class Ticket implements Serializable {
 	@ManyToOne
 	private User user;
 
+	private int status;
+
 	public Ticket() {
 	}
+
+	
+	public int getStatus() {
+		return status;
+	}
+
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
 
 	public int getIdTicket() {
 		return this.idTicket;
