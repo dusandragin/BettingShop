@@ -83,4 +83,12 @@ public class UserServices {
 		return userBean.addCreditForCurrentUser(body);
 	}
 	
+	@Path("/playersForGame/{gameId}")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getPlayersForGame(@PathParam(value = "gameId") int gameId) {
+		return userBean.getPlayersForGame(gameId);
+	}
+	
 }

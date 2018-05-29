@@ -3,18 +3,20 @@ package bettingshop.entity;
 import java.io.Serializable;
 import javax.persistence.*;
 
-
 /**
  * The persistent class for the player database table.
  * 
  */
 @Entity
-@NamedQuery(name="Player.findAll", query="SELECT p FROM Player p")
+@NamedQueries({ 
+	@NamedQuery(name = "Player.findAll", query = "SELECT p FROM Player p"),
+	@NamedQuery(name = "Player.findByTeam", query = "SELECT p FROM Player p WHERE p.team =:team")
+})
 public class Player implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idPlayer;
 
 	private String lastName;
@@ -25,7 +27,7 @@ public class Player implements Serializable {
 
 	private String position;
 
-	//bi-directional many-to-one association to Team
+	// bi-directional many-to-one association to Team
 	@ManyToOne
 	private Team team;
 

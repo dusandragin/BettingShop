@@ -15,11 +15,14 @@ import com.mongodb.util.JSON;
 import bettingshop.data.GameData;
 import bettingshop.data.GamesData;
 import bettingshop.data.LoginParams;
+import bettingshop.data.PlayersData;
 import bettingshop.data.TicketData;
 import bettingshop.data.UserData;
 import bettingshop.data.UserTickets;
 import bettingshop.entity.Game;
+import bettingshop.entity.Player;
 import bettingshop.entity.Result;
+import bettingshop.entity.Team;
 import bettingshop.entity.Ticket;
 import bettingshop.entity.User;
 
@@ -222,6 +225,23 @@ public class UserManager {
 		em.merge(currUser);
 		body.setCredit(currUser.getCredit());
 		return Response.ok(body).build();
+	}
+
+	@SuppressWarnings("unchecked")
+	public Response getPlayersForGame(int gameId) {
+		Game game = em.find(Game.class, gameId);
+		Team team1 = game.getTeam1();
+		Team team2 = game.getTeam2();
+		List<Player> playersTeam1 = em.createNamedQuery("Player.findByTeam")
+									  .setParameter("team", team1)
+									  .getResultList();
+		List<Player> playersTeam2 = em.createNamedQuery("Player.findByTeam")
+									  .setParameter("team", team2)
+									  .getResultList();
+		PlayersData playersData = new PlayersData();
+		playersData.setPlayersTeam1(playersTeam1);
+		playersData.setPlayersTeam2(playersTeam2);
+		return Response.ok(playersData).build();
 	}
 	
 }
