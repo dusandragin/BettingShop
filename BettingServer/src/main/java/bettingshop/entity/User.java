@@ -1,24 +1,28 @@
 package bettingshop.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * The persistent class for the user database table.
  * 
  */
 @Entity
-@NamedQuery(name="User.findAll", query="SELECT u FROM User u")
+@NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idUser;
 
 	private double credit;
@@ -35,27 +39,26 @@ public class User implements Serializable {
 
 	private String username;
 
-	//bi-directional many-to-one association to Comment
-	@OneToMany(mappedBy="user")
+	// bi-directional many-to-one association to Comment
+	@OneToMany(mappedBy = "user")
 	@JsonIgnore
 	private List<Comment> comments;
 
-	//bi-directional many-to-one association to Theme
-	@OneToMany(mappedBy="user")
+	// bi-directional many-to-one association to Theme
+	@OneToMany(mappedBy = "user")
 	@JsonIgnore
 	private List<Theme> themes;
 
-	//bi-directional many-to-one association to Ticket
-	@OneToMany(mappedBy="user")
+	// bi-directional many-to-one association to Ticket
+	@OneToMany(mappedBy = "user")
 	@JsonIgnore
 	private List<Ticket> tickets;
 
 	public User() {
 	}
-	
-	public User(String name, String lastname, 
-		    String username, String email, 
-		    String password, double credit, String role) {
+
+	public User(String name, String lastname, String username, String email, String password, double credit,
+			String role) {
 		this.name = name;
 		this.lastname = lastname;
 		this.username = username;

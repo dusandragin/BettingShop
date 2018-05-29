@@ -1,11 +1,19 @@
 package bettingshop.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
+import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import java.util.List;
 
 
 /**
@@ -50,6 +58,11 @@ public class Team implements Serializable {
 		)
 	@JsonIgnore
 	private List<League> leagues;
+
+	//bi-directional many-to-one association to Player
+	@OneToMany(mappedBy="team")
+	@JsonIgnore
+	private List<Player> players;
 
 	public Team() {
 	}
@@ -136,6 +149,28 @@ public class Team implements Serializable {
 
 	public void setLeagues(List<League> leagues) {
 		this.leagues = leagues;
+	}
+
+	public List<Player> getPlayers() {
+		return this.players;
+	}
+
+	public void setPlayers(List<Player> players) {
+		this.players = players;
+	}
+
+	public Player addPlayer(Player player) {
+		getPlayers().add(player);
+		player.setTeam(this);
+
+		return player;
+	}
+
+	public Player removePlayer(Player player) {
+		getPlayers().remove(player);
+		player.setTeam(null);
+
+		return player;
 	}
 
 }

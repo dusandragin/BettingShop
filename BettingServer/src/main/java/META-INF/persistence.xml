@@ -9,6 +9,7 @@
 		<class>bettingshop.entity.Comment</class>
 		<class>bettingshop.entity.Game</class>
 		<class>bettingshop.entity.League</class>
+		<class>bettingshop.entity.Player</class>
 		<class>bettingshop.entity.Result</class>
 		<class>bettingshop.entity.Team</class>
 		<class>bettingshop.entity.Theme</class>
