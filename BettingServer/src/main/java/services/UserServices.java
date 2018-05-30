@@ -90,5 +90,10 @@ public class UserServices {
 	public Response getPlayersForGame(@PathParam(value = "gameId") int gameId) {
 		return userBean.getPlayersForGame(gameId);
 	}
-	
+	@Path("/getBestTeams")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getBestTeams() {
+		return userBean.getBestTeams();
+	}
 }

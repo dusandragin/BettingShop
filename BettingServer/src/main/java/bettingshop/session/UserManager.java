@@ -2,6 +2,7 @@ package bettingshop.session;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -12,6 +13,7 @@ import javax.ws.rs.core.Response;
 
 import com.mongodb.util.JSON;
 
+import bettingshop.data.BestTeamData;
 import bettingshop.data.GameData;
 import bettingshop.data.GamesData;
 import bettingshop.data.LoginParams;
@@ -75,7 +77,7 @@ public class UserManager {
 			for (int i = 0; i < 3; i++) { // posto je desc prvi tiket je poslednje odigran
 				Ticket tmp = tickets.get(i);
 				if (i == 0) {// najnoviji tiket
-					if (tmp.getStatus() != 1 || tmp.getStatus() == 2 || (!tmp.getValid())) {// ako isplacen ili vec udupliran
+					if (tmp.getStatus() == 1 || tmp.getStatus() == 2 || (!tmp.getValid())) {// ako isplacen ili vec udupliran
 						lastThreeWon = false;// prekida se
 						break;
 					}
@@ -268,6 +270,29 @@ public class UserManager {
 		playersData.setPlayersTeam1(playersTeam1);
 		playersData.setPlayersTeam2(playersTeam2);
 		return Response.ok(playersData).build();
+	}
+
+	public Response getBestTeams() {
+		List<BestTeamData>bestTeams = new ArrayList<BestTeamData>();
+		String datum = Calendar.getInstance().get(1)+"-"+ Calendar.getInstance().get(5)+"-"+Calendar.getInstance().get(4);
+		@SuppressWarnings({ "unchecked"})
+		List <Object []> teamRes = em.createNativeQuery("select team, city,  count(team)as  brojPobeda "
+				+ " from (select t.name as team, t.city as city from  team t, game g "
+				+ " where t.idTeam=g.HomeTeam_idTeam and g.homeScore > g.awayScore and g.time<='"+datum+"' "
+				+ " union "
+				+ " select t.name as team, t.city as city from team t,  game g "
+				+ " where t.idTeam=g.AwayTeam_idTeam and g.homeScore < g.awayScore and g.time<='"+datum+"' "
+				+ " )as res group by 1 order by 1 desc ")
+				.getResultList();
+		System.out.println("calemdar = "+datum);
+		System.out.println("teamRes size = "+teamRes.size());
+		if (teamRes.size() != 0) {
+			for(Object[] tr: teamRes) {
+				BestTeamData btd = new BestTeamData(tr[0].toString(), tr[1].toString(), new Integer(tr[2].toString()).intValue());
+				bestTeams.add(btd);
+			}
+		}
+		return Response.ok(bestTeams).build();
 	}
 	
 }
